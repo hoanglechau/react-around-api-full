@@ -80,17 +80,17 @@ class Api {
   }
 
   _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error ${res.status}`);
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   }
 }
 
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://api.hoanglechau.students.nomoreparties.sbs'
+  : 'http://localhost:3000';
+
 const api = new Api({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: BASE_URL,
   headers: {
-    authorization: '1789319c-7844-4c96-ac53-65a440060c1a',
     'Content-Type': 'application/json',
   },
 });
