@@ -35,8 +35,12 @@ class Auth {
   }
 }
 
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://api.hoanglechau.students.nomoreparties.sbs'
+  : 'http://localhost:3000';
+
 const auth = new Auth({
-  baseUrl: 'https://register.nomoreparties.co',
+  baseUrl: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
