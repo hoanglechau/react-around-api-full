@@ -96,20 +96,20 @@ export default function App() {
         setSelectedCard(card);
     }
 
-    function handleUpdateUser(userUpdate) {
+    function handleUpdateUser({ name, about }) {
         api
-            .setUserInfo(userUpdate, localStorage.getItem('jwt'))
+            .setUserInfo({ name, about }, localStorage.getItem('jwt'))
             .then((newUserData) => {
-                setCurrentUser(newUserData);
+                setCurrentUser(newUserData.data);
                 closeAllPopups();
             })
             .catch((err) => console.log(err));
     }
 
-    function handleUpdateAvatar(avatarUpdate) {
-        api.setUserAvatar(avatarUpdate, localStorage.getItem('jwt'))
+    function handleUpdateAvatar({ avatar }) {
+        api.setUserAvatar({ avatar }, localStorage.getItem('jwt'))
             .then((newUserData) => {
-                setCurrentUser(newUserData);
+                setCurrentUser(newUserData.data);
                 closeAllPopups();
             })
             .catch((err) => console.log(err));
