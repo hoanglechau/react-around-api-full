@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
-const { urlRegExp } = require('../utils/regex');
+const validator = require('validator');
 
 const cardsSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'The "name" field must be filled in'],
-    minlength: [2, 'The minimum length of the "name" field is 2'],
-    maxlength: [30, 'The maximum length of the "name" field is 30'],
+    required: true,
+    minlength: 2,
+    maxlength: 30,
   },
   link: {
     type: String,
-    required: [true, 'The "link" field must be filled in'],
+    required: true,
     validate: {
-      validator: (v) => urlRegExp.test(v),
-      message: 'The "link" field must be a valid URL',
+      validator: validator.isURL,
+      message: 'The "link" must be a valid url',
     },
   },
   owner: {
@@ -29,6 +29,6 @@ const cardsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-}, { versionKey: false });
+});
 
 module.exports = mongoose.model('card', cardsSchema);
