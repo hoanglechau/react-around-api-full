@@ -35,13 +35,16 @@ export default function App() {
     const history = useHistory();
 
     React.useEffect(() => {
-        api.getInitialCards()
-            .then(([cardData, userData]) => {
-                setCurrentUser(userData);
-                setCards(cardData);
-            })
-            .catch((err) => console.log(err));
-    }, []);
+        const token = localStorage.getItem('jwt');
+        if (token && isLoggedIn) {
+            api.getInitialCards(token)
+                .then(([cardData, userData]) => {
+                    setCurrentUser(userData);
+                    setCards(cardData);
+                })
+                .catch((err) => console.log(err));
+        }
+    }, [isLoggedIn]);
 
     React.useEffect(() => {
         const token = localStorage.getItem('jwt');
@@ -49,7 +52,7 @@ export default function App() {
             auth.checkToken(token)
                 .then((res) => {
                     if (res) {
-                        setEmail(res.data.email);
+                        setEmail(res.email);
                         setIsLoggedIn(true);
                         history.push('/');
                     } else {
@@ -116,7 +119,7 @@ export default function App() {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some((i) => i._id === currentUser._id);
+        const isLiked = card.likes.some((cardId) => cardId === currentUser._id);
         api
             .changeLikeStatus(card._id, !isLiked, localStorage.getItem('jwt'))
             .then((newCard) => {
@@ -124,7 +127,12 @@ export default function App() {
                     cards.map((c) => (c._id === card._id ? newCard : c))
                 );
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(
+                    'Uh-oh! Error occurred while changing the like status of the card.'
+                );
+                console.log(err);
+            });
     }
 
     function handleCardDelete(card) {
@@ -137,7 +145,7 @@ export default function App() {
     }
 
     function handleAddPlaceSubmit(newCard) {
-        api.addCard(newCard)
+        api.addCard(newCard, localStorage.getItem('jwt'))
             .then((newCardFull) => {
                 setCards([newCardFull, ...cards]);
                 closeAllPopups();
@@ -167,9 +175,9 @@ export default function App() {
         auth.login({email, password})
             .then((res) => {
                 if (res.token) {
+                    localStorage.setItem('jwt', res.token);
                     setIsLoggedIn(true);
                     setEmail(email);
-                    localStorage.setItem('jwt', res.token);
                     history.push('/');
                 } else {
                     setToolTipStatus('fail');
