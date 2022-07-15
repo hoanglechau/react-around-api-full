@@ -9,7 +9,7 @@ const auth = (req, res, next) => {
   console.log(req.headers);
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    return next(new UnauthorizedError('Authorization Required11'));
+    return next(new UnauthorizedError('Authorization Required'));
   }
 
   const token = authorization.replace('Bearer ', '');
@@ -21,9 +21,9 @@ const auth = (req, res, next) => {
     return next(new UnauthorizedError('Authorization Required'));
   }
 
-  req.user = payload; // assigning the payload to the request object
+  req.user = payload;
 
-  return next(); // sending the request to the next middleware
+  return next();
 };
 
 module.exports = auth;
