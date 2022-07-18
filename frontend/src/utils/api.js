@@ -84,9 +84,10 @@ class Api {
   }
 }
 
-const BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://api.hoanglechau.students.nomoreparties.sbs'
-  : 'http://localhost:3000';
+const BASE_URL =
+	process.env.NODE_ENV === 'production'
+		? 'https://api.hoanglechau.students.nomoredomainssbs.ru'
+		: 'http://localhost:3000';
 
 const api = new Api({
   baseUrl: BASE_URL,
