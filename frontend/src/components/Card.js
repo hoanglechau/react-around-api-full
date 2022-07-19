@@ -22,9 +22,9 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     }`;
 
     const isOwn = card.owner._id === currentUser._id;
-    const cardDeleteButtonClassName = isOwn
-			? 'card__btn-delete'
-			: 'card__btn-delete_hidden';
+    const cardDeleteButtonClassName = `card__btn-delete ${
+			isOwn ? '' : 'card__btn-delete_hidden'
+		}`;
 
     return (
         <li className='places__item card'>
