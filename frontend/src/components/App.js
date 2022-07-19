@@ -100,8 +100,7 @@ export default function App() {
     }
 
     function handleUpdateUser({ name, about }) {
-        api
-            .setUserInfo({ name, about }, localStorage.getItem('jwt'))
+        api.setUserInfo({ name, about }, localStorage.getItem('jwt'))
             .then((newUserData) => {
                 setCurrentUser(newUserData.data);
                 closeAllPopups();
