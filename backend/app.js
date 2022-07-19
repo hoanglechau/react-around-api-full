@@ -15,7 +15,7 @@ console.log(process.env.NODE_ENV);
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/aroundb');
+mongoose.connect('mongodb://0.0.0.0:27017/aroundb');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
