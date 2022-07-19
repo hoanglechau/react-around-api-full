@@ -15,12 +15,12 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret-key',
         {
           expiresIn: '7d',
         },
       );
-      res.send({ data: user.toJSON(), token });
+      res.send({ token });
     })
     .catch(() => {
       next(new UnauthorizedError('Incorrect email or password'));
