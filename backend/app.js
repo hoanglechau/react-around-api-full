@@ -50,14 +50,14 @@ app.use((req, res, next) => {
 });
 */
 
-const allowedCors = [
-  'https://api.hoanglechau.students.nomoredomainssbs.ru',
-  'https://www.hoanglechau.students.nomoredomainssbs.ru',
-  'https://hoanglechau.students.nomoredomainssbs.ru',
-  'localhost:3000',
-];
-
 app.use((req, res, next) => {
+  const allowedCors = [
+    'https://api.hoanglechau.students.nomoredomainssbs.ru',
+    'https://www.hoanglechau.students.nomoredomainssbs.ru',
+    'https://hoanglechau.students.nomoredomainssbs.ru',
+    'localhost:3000',
+  ];
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   res.header(
     'Access-Control-Allow-Origin',
     allowedCors,
@@ -66,8 +66,8 @@ app.use((req, res, next) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept',
   );
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-  next();
+  res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+  return next();
 });
 
 app.use(cors());
