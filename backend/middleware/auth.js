@@ -5,14 +5,14 @@ const UnauthorizedError = require('../errors/unauthorized-error');
 
 const auth = (req, res, next) => {
   const { authorization } = req.headers;
-
-  console.log(req.headers);
+  console.log(authorization);
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
     return next(new UnauthorizedError('Authorization Required'));
   }
 
   const token = authorization.replace('Bearer ', '');
+  console.log(token);
   let payload;
 
   try {
