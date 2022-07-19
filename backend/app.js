@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
+/*
 app.use((req, res, next) => {
   const allowedCors = [
     'https://api.hoanglechau.students.nomoredomainssbs.ru',
@@ -46,6 +47,20 @@ app.use((req, res, next) => {
   }
 
   return next();
+});
+*/
+
+app.use((req, res, next) => {
+  res.header(
+    'Access-Control-Allow-Origin',
+    'https://hoanglechau.students.nomoredomainssbs.ru',
+  );
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  );
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+  next();
 });
 
 app.use(cors());
