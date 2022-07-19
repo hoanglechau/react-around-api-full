@@ -1,5 +1,5 @@
 const express = require('express');
-// listen to port 3000
+
 const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -19,6 +19,7 @@ mongoose.connect('mongodb://localhost:27017/aroundb');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.options('*', cors());
 
 app.use((req, res, next) => {
   const allowedCors = [
@@ -47,8 +48,6 @@ app.use((req, res, next) => {
   return next();
 });
 
-app.use(cors());
-app.options('*', cors()); // Enable requests for all routes
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
