@@ -50,10 +50,17 @@ app.use((req, res, next) => {
 });
 */
 
+const allowedCors = [
+  'https://api.hoanglechau.students.nomoredomainssbs.ru',
+  'https://www.hoanglechau.students.nomoredomainssbs.ru',
+  'https://hoanglechau.students.nomoredomainssbs.ru',
+  'localhost:3000',
+];
+
 app.use((req, res, next) => {
   res.header(
     'Access-Control-Allow-Origin',
-    'https://hoanglechau.students.nomoredomainssbs.ru',
+    allowedCors,
   );
   res.header(
     'Access-Control-Allow-Headers',
