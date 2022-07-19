@@ -47,21 +47,22 @@ export default function App() {
     }, [isLoggedIn]);
 
     React.useEffect(() => {
-        const token = localStorage.getItem('jwt');
-        if (token) {
-            auth.checkToken(token)
-                .then((res) => {
-                    if (res) {
-                        setEmail(res.email);
-                        setIsLoggedIn(true);
-                        history.push('/');
-                    } else {
-                        localStorage.removeItem('jwt');
-                    }
-                })
-                .catch((err) => console.log(err));
-        }
-    }, []);
+			const token = localStorage.getItem('jwt');
+			if (token) {
+				auth
+					.checkToken(token)
+					.then((res) => {
+						if (res) {
+							setEmail(res.email);
+							setIsLoggedIn(true);
+							history.push('/');
+						} else {
+							localStorage.removeItem('jwt');
+						}
+					})
+					.catch((err) => console.log(err));
+			}
+		}, [history]);
 
     function handleEditProfileClick() {
         setIsEditProfilePopupOpen(true);
