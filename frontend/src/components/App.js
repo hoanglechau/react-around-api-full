@@ -123,8 +123,8 @@ export default function App() {
         api
             .changeLikeStatus(card._id, !isLiked, localStorage.getItem('jwt'))
             .then((newCard) => {
-                setCards((cards) =>
-                    cards.map((c) => (c._id === card._id ? newCard : c))
+                setCards((items) =>
+                    items.map((c) => (c._id === card._id ? newCard : c))
                 );
             })
             .catch((err) => {
@@ -139,7 +139,7 @@ export default function App() {
         api
             .removeCard(card._id, localStorage.getItem('jwt'))
             .then(() => {
-                setCards((cards) => cards.filter((c) => c._id !== card._id));
+                setCards((items) => items.filter((c) => c._id !== card._id));
             })
             .catch((err) => console.log(err));
     }
