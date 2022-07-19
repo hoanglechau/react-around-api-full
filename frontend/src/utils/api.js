@@ -48,13 +48,13 @@ class Api {
   }
 
   changeLikeStatus(cardID, like, token) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
-      method: like ? 'PUT' : 'DELETE',
-      headers: {
-        authorization: `Bearer ${token}`,
-        ...this._headers,
-      },
-    }).then(this._checkResponse);
+    return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
+			method: like ? 'PUT' : 'DELETE',
+			headers: {
+				authorization: `Bearer ${token}`,
+				...this._headers,
+			},
+		}).then(this._checkResponse);
   }
 
   setUserInfo({ name, about }, token) {
