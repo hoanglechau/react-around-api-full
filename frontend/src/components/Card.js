@@ -21,9 +21,9 @@ export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         isLiked && 'card__btn-like_active'
     }`;
 
-    const isOwn = card.owner._id === currentUser._id;
+    const isOwn = card.owner === currentUser._id;
     const cardDeleteButtonClassName = `card__btn-delete ${
-			isOwn ? 'card__btn-delete' : 'card__btn-delete_hidden'
+			!isOwn && 'card__btn-delete_hidden'
 		}`;
 
     return (
