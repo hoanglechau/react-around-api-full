@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { PORT = 3000, MONGO_URI } = process.env;
+const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -16,7 +16,7 @@ console.log(process.env.NODE_ENV);
 
 const app = express();
 
-mongoose.connect(MONGO_URI);
+mongoose.connect('mongodb://localhost:27017/aroundb');
 
 app.use(limiter);
 app.use(express.json());
