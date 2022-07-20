@@ -1,22 +1,22 @@
 const express = require('express');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, MONGO_URI } = process.env;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const { requestLogger, errorLogger } = require('./middleware/logger');
 require('dotenv').config();
+const { requestLogger, errorLogger } = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const limiter = require('./middleware/limiter');
-
+const { localdb, allowedCors, DEFAULT_ALLOWED_METHODS } = require('./utils/config');
 const mainRouter = require('./routes/index');
 
 console.log(process.env.NODE_ENV);
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/aroundb');
+mongoose.connect(NODE_ENV === 'production' ? MONGO_URI : localdb);
 
 app.use(limiter);
 app.use(express.json());
@@ -24,13 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
 app.use((req, res, next) => {
-  const allowedCors = [
-    'https://api.hoanglechau.students.nomoredomainssbs.ru',
-    'https://www.hoanglechau.students.nomoredomainssbs.ru',
-    'https://hoanglechau.students.nomoredomainssbs.ru',
-    'localhost:3000',
-  ];
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
   res.header(
     'Access-Control-Allow-Origin',
     allowedCors,
