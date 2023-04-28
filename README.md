@@ -7,5 +7,4 @@ This repository contains the full API of "Around the U.S." project that features
 * Link to repository with the complete React application which uses this API:
   <https://github.com/hoanglechau/react-around-api-full>
 
-* Link to the website that hosts your API:
-  <https://www.hoanglechau.students.nomoredomainssbs.ru/>
+* [Live Site](https://tangerine-parfait-da1ff0.netlify.app/)
